@@ -23,13 +23,13 @@ agent = Agent(
 )
 
 # Basic agent example
-response = basic_agent.run_sync("How can I track my order #6879? ")
+response = agent.run_sync("How can I track my order #6879? ")
 
 print(response.data)
 print(response.all_messages())
 print(response.cost())
 
-response2 = basic_agent.run_sync(
+response2 = agent.run_sync(
   user_prompt="What was my previous question"
   message_history=response.new_messages(),
 )
