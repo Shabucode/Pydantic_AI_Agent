@@ -60,7 +60,11 @@ agent3 = Agent(
     ),
     tools=[Tool(get_shipping_info, takes_ctx=True)]
 )
-
+customer = CustomerDetails(
+    customer_id="1",
+    name="John Doe",
+    email="john@doe.com",
+)
 @agent3.system_prompt
 async def add_customer_name(ctx: RunContext[CustomerDetails]) -> str:
     return f"Customer details: {to_markdown(ctx.deps)}"
