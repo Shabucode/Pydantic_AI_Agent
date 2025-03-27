@@ -62,3 +62,14 @@ agent4 = Agent(
         "Always greet customer and provide helpful response"
     ),
 )
+
+@agent4.system_prompt
+async def get_shipping_status(order_id: str) -> str:
+    """ Get the shipping status for the given order id"""
+    shipping_status = shipping_info_db.get(order_id)
+    if shipping_status is None:
+        raise ModelRetry(
+            f"No shipping information found"
+        )
+    return shipping_info_db[order_id]
+
