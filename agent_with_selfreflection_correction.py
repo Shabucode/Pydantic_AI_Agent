@@ -69,7 +69,15 @@ async def get_shipping_status(order_id: str) -> str:
     shipping_status = shipping_info_db.get(order_id)
     if shipping_status is None:
         raise ModelRetry(
-            f"No shipping information found"
+            f"No shipping information found for order ID {order_id}."
+            "Make sure the order ID starts with a #: e.g, #87954"
+            "Self-correct this if needed and try again."
         )
     return shipping_info_db[order_id]
 
+#Example usage
+response = agent4.run_sync(
+    user_prompt="what's the status of my last order 12345?", deps=customer)
+
+response.all_messages()
+print(response.data.model_dump_json(indent=2))
